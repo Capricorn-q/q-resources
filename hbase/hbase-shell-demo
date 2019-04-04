@@ -1,0 +1,50 @@
+status
+version
+
+# HBase系统默认定义了两个缺省的namespace
+#      hbase：系统内建表，包含namespace和meta表
+#      default：用户建表时未指定namespace的表都创建在此
+
+create_namespace 'test'
+create 'test:t_user','info','address'
+describe 'test:t_user'
+exists 'test:t_user'
+is_enabled 'test:t_user'
+is_disabled 'test:t_user'
+
+#  put 'namespace:tableName','rk','rf:r1','rf:r2'...
+put 'test:t_user','111','info:name','alice'
+put 'test:t_user','111','info:age',20
+put 'test:t_user','111','info:sex','remale'
+put 'test:t_user','111','address:country','CN'
+put 'test:t_user','111','address:province','GD'
+put 'test:t_user','111','address:city','GZ'#
+
+put 'test:t_user','222','info:name','jack'
+put 'test:t_user','222','info:age',22
+put 'test:t_user','222','info:sex','male'
+put 'test:t_user','222','address:country','CN'
+put 'test:t_user','222','address:province','GD'
+put 'test:t_user','222','address:city','SZ'
+
+count 'test:t_user'
+
+get 'test:t_user','111'
+delete 'test:t_user','111', 'info:age'
+get 'test:t_user','111','info'
+deleteall 'test:t_user', '111'
+scan 'test:t_user'
+
+
+# 添加修改列簇
+disable 'test:t_user'
+alter 'test:t_user',NAME=>'job'
+desc 'test:t_user'
+alter 'test:t_user',NAME=>'job','METHOD'=>'delete'
+desc 'test:t_user'
+enable 'test:t_user'
+
+truncate 'test:t_user'
+# 先disable，再drop
+disable 'test:t_user'
+drop 'test:t_user'
