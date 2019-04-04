@@ -1,0 +1,19 @@
+cd $PHOENIX/bin
+#./sqlline.py ${zkUrl}
+./sqlline.py 127.0.0.1:2181
+
+# 显示table
+!tables
+
+CREATE TABLE user (
+id integer not null primary key,
+INFO.name varchar,
+INFO.age integer,
+INFO.address varchar
+);
+
+#指定列簇为INFO
+upsert into user(id, INFO.name, INFO.passwd, INFO.address) values(1, 'admin', 12, 'gz');
+select * from user;     #查询数据
+select name from user where id =1;
+delete from user where id=1;
