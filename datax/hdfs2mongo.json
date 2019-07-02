@@ -1,0 +1,75 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 1
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "hdfsreader",
+          "parameter": {
+            "path": "/user/hive/warehouse/test_user.db/",
+            "defaultFS": "hdfs://127.0.0.1:9000",
+            "column": [
+              {
+                "index": 0,
+                "type": "STRING"
+              },
+              {
+                "index": 1,
+                "type": "STRING"
+              },
+              {
+                "index": 2,
+                "type": "Long"
+              },
+              {
+                "index": 3,
+                "type": "STRING"
+              }
+            ],
+            "fileType": "orc",
+            "encoding": "UTF-8",
+            "fieldDelimiter": "\t"
+          }
+        },
+        "writer": {
+          "name": "mongodbwriter",
+          "parameter": {
+            "address": [
+              "127.0.0.1:27017"
+            ],
+            "userName": "",
+            "userPassword": "",
+            "dbName": "test",
+            "collectionName": "test_user_orc",
+            "column": [
+              {
+                "name": "unique_id",
+                "type": "STRING"
+              },
+              {
+                "name": "name",
+                "type": "STRING"
+              },
+              {
+                "name": "age",
+                "type": "INT"
+              },
+              {
+                "name": "sex",
+                "type": "STRING"
+              }
+            ],
+            "upsertInfo": {
+              "isUpsert": "true",
+              "upsertKey": "name"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

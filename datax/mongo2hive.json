@@ -1,0 +1,74 @@
+//        macOS并发数设置成1，不然会产生多个文件
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 1
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mongodbreader",
+          "parameter": {
+            "address": [
+              "127.0.0.1:27017"
+            ],
+            "userName": "",
+            "userPassword": "",
+            "dbName": "test",
+            "collectionName": "test_user",
+            "column": [
+              {
+                "name": "_id",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "age",
+                "type": "int"
+              },
+              {
+                "name": "sex",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "hdfswriter",
+          "parameter": {
+            "defaultFS": "hdfs://127.0.0.1:9000",
+            "fileType": "orc",
+            "path": "/user/hive/warehouse/test_user.db",
+            "fileName": "test_user.orc",
+            "column": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "age",
+                "type": "int"
+              },
+              {
+                "name": "sex",
+                "type": "string"
+              }
+            ],
+            "writeMode": "append",
+            "fieldDelimiter": "\t",
+            "compress": "NONE"
+          }
+        }
+      }
+    ]
+  }
+}
